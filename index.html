@@ -6,6 +6,7 @@
     <script src="https://aframe.io/releases/1.0.4/aframe.min.js"></script>
     <script src="https://unpkg.com/aframe-look-at-component@0.8.0/dist/aframe-look-at-component.min.js"></script>
     <script src="https://raw.githack.com/AR-js-org/AR.js/master/aframe/build/aframe-ar-nft.js"></script>
+    <script src="https://rawgit.com/mayognaise/aframe-gif-shader/master/dist/aframe-gif-shader.min.js"></script> 
     <script>
       window.onload = () => {                       navigator.geolocation.getCurrentPosition((position) => {
         document.querySelector('a-image').setAttribute('gps-entity-place', `latitude: ${position.coords.latitude}; longitude: ${position.coords.longitude};`)
@@ -20,7 +21,7 @@
       embedded
       arjs="sourceType: webcam; debugUIEnabled: false;"
     >
-       <a-image src="duck.png"
+       <a-image src="./duck.png"
           position= "0 1 0"
           scale= "1 1 1"
           rotation="0 2 0" animation="property: rotation; to: 0 360 0; loop: true; dur: 7000"
