@@ -9,7 +9,7 @@
     <script src="https://rawgit.com/mayognaise/aframe-gif-shader/master/dist/aframe-gif-shader.min.js"></script> 
     <script>
       window.onload = () => {                       navigator.geolocation.getCurrentPosition((position) => {
-        document.querySelector('a-text').setAttribute('gps-entity-place', `latitude: ${position.coords.latitude}; longitude: ${position.coords.longitude};`)
+        document.querySelector('a-entity').setAttribute('gps-entity-place', `latitude: ${position.coords.latitude}; longitude: ${position.coords.longitude};`)
       });
      }
     </script>
@@ -23,7 +23,7 @@
     >
        <a-entity
         gltf-model="./rusztowanie.gltf"
-        scale="0.15 0.15 0.15"
+        scale="3 3 3"
       >
       </a-entity>
       <a-text
