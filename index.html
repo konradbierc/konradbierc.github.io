@@ -1,41 +1,38 @@
 <html>
   <head>
-    <title>WebAR Object Placement</title>
-    <script src="https://aframe.io/releases/1.2.0/aframe.min.js"></script>
-    <script src="https://rawgit.com/jeromeetienne/AR.js/3.3.1/aframe/build/aframe-ar.js"></script>
-  </head>
-  <body style="margin: 0; overflow: hidden;">
-    <a-scene 
-      vr-mode-ui="enabled: false"
-      embedded 
-      arjs="sourceType: webcam; debugUIEnabled: false;"
-      >
-      <a-entity id="marker" arjs-anchor></a-entity>
-      <a-entity id="object" gltf-model="url(model.glb)"></a-entity>
-      <a-camera-static></a-camera-static>
-    </a-scene>
-
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <title>AR-Sense Rusztowanie</title>
+    <script src="https://aframe.io/releases/1.0.4/aframe.min.js"></script>
+    <script src="https://unpkg.com/aframe-look-at-component@0.8.0/dist/aframe-look-at-component.min.js"></script>
+    <script src="https://raw.githack.com/AR-js-org/AR.js/master/aframe/build/aframe-ar-nft.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/c-frame/aframe-extras@tagOrCommit/dist/aframe-extras.min.js"></script>
     <script>
-      const scene = document.querySelector('a-scene');
-      const marker = document.querySelector('#marker');
-      const object = document.querySelector('#object');
-
-      scene.addEventListener('loaded', () => {
-        const arToolkitContext = scene.querySelector('[arjs-context]').components.arjs.context;
-        arToolkitContext.arController.addEventListener('getMarker', (event) => {
-          const { marker } = event.data;
-
-          if (marker.visible) {
-            const { matrixWorld } = marker;
-
-            object.object3D.visible = true;
-            object.object3D.matrix.copy(matrixWorld);
-            object.object3D.matrix.decompose(object.object3D.position, object.object3D.quaternion, object.object3D.scale);
-          } else {
-            object.object3D.visible = false;
-          }
-        });
+      window.onload = () => {                       navigator.geolocation.getCurrentPosition((position) => {
+        document.querySelector('a-entity').setAttribute('gps-entity-place', `latitude: ${position.coords.latitude}; longitude: ${position.coords.longitude};`)
       });
+     }
     </script>
+  </head>
+
+  <body style="margin: 0; overflow: hidden;">
+    <a-scene
+      vr-mode-ui="enabled: false"
+      embedded
+      arjs="sourceType: webcam; debugUIEnabled: false;"
+    >
+      <a-entity gltf-model="src: url(1.glb);"></a-entity> 
+      <!-- <a-assets>
+        <a-asset-item id="tree" src="1.glb"></a-asset-item>
+      </a-assets>
+    
+      <a-entity gltf-model="#tree"></a-entity> -->
+      <a-text
+        value="No markers around"
+        look-at="[gps-camera]"
+        scale="0.15 0.15 0.15"
+      ></a-text>
+      <a-camera gps-camera rotation-reader> </a-camera>
+    </a-scene>
   </body>
 </html>
